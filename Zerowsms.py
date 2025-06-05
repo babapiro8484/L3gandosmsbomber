@@ -13,7 +13,7 @@ while 1:
 ███████ ███████ ██       ██████   ███ ███       ██████  ██   ██ ██████  ██   ██ 
                                                                               
     Sms: {}           {}by {}@zerowbabaa\n  
-    """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Style.RESET_ALL, Fore.LIGHTRED_EX))
+    
     try:
         menu = (input(Fore.LIGHTMAGENTA_EX + " 1- SMS Gönder (RELAX)\n\n 2- SMS Gönder (DEHŞET)\n\n 3- SİKTİR GİT\n\n" + Fore.LIGHTYELLOW_EX + " Seçim: "))
         if menu == "":
