@@ -11,18 +11,17 @@ for attribute in dir(SendSms):
         if attribute.startswith('__') == False:
             servisler_sms.append(attribute)
 
-
 clear
 function rainbow_text() {
-  text=$1
-  colors=(31 33 32 36 34 35)
-  i=0
-  for (( j=0; j<${#text}; j++ )); do
+text=$
+colors=(31 33 32 36 34 35)
+i=0
+for (( j=0; j<${#text}; j++ )); do
     char="${text:j:1}"
-    printf "\e[1;${colors[$i]}m$char"
-    ((i=(i+1)%${#colors[@]}))
-  done
-  echo -e "\e[0m"
+printf "\e[1;${colors[$i]}m$char"
+((i=(i+1)%${#colors[@]}))
+    done
+    echo -e "\e[0m"
 }
 
 echo -e "\n"
