@@ -21,19 +21,31 @@ def rainbow_text(text):
         i = (i + 1) % len(colors)
     result += "\033[0m"
     return result
-    
-echo -e "\n"
-rainbow_text "███████ ███████ ██████   ██████  ██     ██ ██████   █████  ██████   █████  ██████  "
-rainbow_text "██      ██      ██   ██ ██       ██     ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ "
-rainbow_text "█████   █████   ██████  ██   ███ ██  █  ██ ██████  ███████ ██   ██ ███████ ██   ██ "
-rainbow_text "██      ██      ██      ██    ██ ██ ███ ██ ██      ██   ██ ██   ██ ██   ██ ██   ██ "
-rainbow_text "██      ███████ ██       ██████   ███ ███  ██      ██   ██ ██████  ██   ██ ██████  "
-rainbow_text "                          Z E R O W B A B A                          "
-echo -e "\n"
-echo -e "\e[1;36m✦ Welcome back, cyber warrior."
-echo -e "\e[1;32m✦ System Initialized at $(date +%H:%M:%S)"
-echo -e "\e[1;35m✦ Terminal Mode: \e[1;33mACTIVE"
-echo -e "\n"
+def rainbow_text(text):
+    colors = [31, 33, 32, 36, 34, 35]
+    result = ""
+    i = 0
+    for char in text:
+        result += f"\033[1;{colors[i]}m{char}"
+        i = (i + 1) % len(colors)
+    result += "\033[0m"
+    return result
+
+# Kullanım:
+print()
+print(rainbow_text("███████ ███████ ██████   ██████  ██     ██ ██████   █████  ██████   █████  ██████ "))
+print(rainbow_text("██      ██      ██   ██ ██       ██     ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ "))
+print(rainbow_text("█████   █████   ██████  ██   ███ ██  █  ██ ██████  ███████ ██   ██ ███████ ██   ██ "))
+print(rainbow_text("██      ██      ██      ██    ██ ██ ███ ██ ██      ██   ██ ██   ██ ██   ██ ██   ██ "))
+print(rainbow_text("██      ███████ ██       ██████   ███ ███  ██      ██   ██ ██████  ██   ██ ██████  "))
+print(rainbow_text("                          Z E R O W B A B A                          "))
+print()
+print("\033[1;36m✦ Welcome back, cyber warrior.")
+import datetime
+print(f"\033[1;32m✦ System Initialized at {datetime.datetime.now().strftime('%H:%M:%S')}")
+print("\033[1;35m✦ Terminal Mode: \033[1;33mACTIVE")
+print()    
+
     
     Sms: {}           {}by {}@tzerowbaba\n  
     """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Style.RESET_ALL, Fore.LIGHTRED_EX))
