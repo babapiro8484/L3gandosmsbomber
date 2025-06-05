@@ -122,7 +122,7 @@ while 1:
                                         break
                                     exec("sms."+attribute+"()")
                                     sleep(aralik)
-        print(Fore.LIGHTRED_EX + "\nMenüye dönmek için 'enter' tuşuna bas kral...)
+        print(Fore.LIGHTRED_EX + "\nMenüye dönmek için 'enter' tuşuna bas kral...")
         input()
     elif menu == 3:
         system("cls||clear")
