@@ -265,7 +265,7 @@ class SendSms():
             r = requests.post(url=url, headers=headers, json=json, timeout=6)
             if r.json()["result"] == "SMS sended succesfully!":
               print(f"{Fore.LIGHTGREEN_EX}[+] {Style.RESET_ALL}Başarılı! {self.phone} --> akasyaapi.poilabs.com")
-                self.adet += 1
+              self.adet += 1
             else:
                 raise
         except:
