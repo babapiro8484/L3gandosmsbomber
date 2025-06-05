@@ -12,7 +12,7 @@ for attribute in dir(SendSms):
             servisler_sms.append(attribute)
 
 clear
-function rainbow_text() {
+def rainbow_text(text):
 text=$
 colors=(31 33 32 36 34 35)
 i=0
