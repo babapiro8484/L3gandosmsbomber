@@ -4,8 +4,8 @@ from os import system
 import threading
             
 while 1:
-    system("cls||clear")
-    print("""{}
+            system("cls||clear")
+            print("""{}
 ███████ ███████ ██████   ██████  ██     ██      ██████   █████  ██████   █████  
 ██      ██      ██   ██ ██       ██     ██     ██    ██ ██   ██ ██   ██ ██   ██ 
 ███████ █████   ██████  ██   ███ ██  █  ██     ██    ██ ███████ ██   ██ ███████ 
