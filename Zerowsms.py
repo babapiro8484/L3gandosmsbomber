@@ -1,8 +1,17 @@
 from colorama import Fore, Style
 from time import sleep
 from os import system
+from sms import SendSms
 import threading
 
+servisler_sms = []
+for attribute in dir(SendSms):
+    attribute_value = getattr(SendSms, attribute)
+    if callable(attribute_value):
+        if attribute.startswith('__') == False:
+            servisler_sms.append(attribute)
+
+            
 while 1:
     system("cls||clear")
     print("""{cyan}
