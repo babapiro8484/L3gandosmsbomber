@@ -13,17 +13,15 @@ for attribute in dir(SendSms):
 
 clear
 def rainbow_text(text):
-text=$
-colors=(31 33 32 36 34 35)
-i=0
-for (( j=0; j<${#text}; j++ )); do
-    char="${text:j:1}"
-printf "\e[1;${colors[$i]}m$char"
-((i=(i+1)%${#colors[@]}))
-    done
-    echo -e "\e[0m"
-}
-
+    colors = [31, 33, 32, 36, 34, 35]
+    result = ""
+    i = 0
+    for char in text:
+        result += f"\033[1;{colors[i]}m{char}"
+        i = (i + 1) % len(colors)
+    result += "\033[0m"
+    return result
+    
 echo -e "\n"
 rainbow_text "███████ ███████ ██████   ██████  ██     ██ ██████   █████  ██████   █████  ██████  "
 rainbow_text "██      ██      ██   ██ ██       ██     ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ "
