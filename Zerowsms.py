@@ -12,7 +12,7 @@ for attribute in dir(SendSms):
             servisler_sms.append(attribute)
 
 
-  clear
+clear
 function rainbow_text() {
   text=$1
   colors=(31 33 32 36 34 35)
