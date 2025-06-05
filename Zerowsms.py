@@ -2,18 +2,24 @@ from colorama import Fore, Style
 from time import sleep
 from os import system
 import threading
-            
+
 while 1:
-            system("cls||clear")
-            print("""{}
+    system("cls||clear")
+    print("""{cyan}
 ███████ ███████ ██████   ██████  ██     ██      ██████   █████  ██████   █████  
 ██      ██      ██   ██ ██       ██     ██     ██    ██ ██   ██ ██   ██ ██   ██ 
 ███████ █████   ██████  ██   ███ ██  █  ██     ██    ██ ███████ ██   ██ ███████ 
      ██ ██      ██      ██    ██ ██ ███ ██     ██    ██ ██   ██ ██   ██ ██   ██ 
 ███████ ███████ ██       ██████   ███ ███       ██████  ██   ██ ██████  ██   ██ 
                                                                               
-    Sms: {}           {}by {}@zerowbabaa\n  
-    
+    Sms: {sms_count}           {reset}by {red}@zerowbabaa\n
+""".format(
+        cyan=Fore.CYAN,
+        sms_count=42, 
+        reset=Style.RESET_ALL,
+        red=Fore.RED
+    ))
+            
     try:
         menu = (input(Fore.LIGHTMAGENTA_EX + " 1- SMS Gönder (RELAX)\n\n 2- SMS Gönder (DEHŞET)\n\n 3- SİKTİR GİT\n\n" + Fore.LIGHTYELLOW_EX + " Seçim: "))
         if menu == "":
