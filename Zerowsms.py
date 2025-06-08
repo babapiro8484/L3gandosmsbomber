@@ -109,7 +109,7 @@ while 1:
                 continue
         system("cls||clear")
         try:
-            print(Fore.LIGHTYELLOW_EX + "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral dert deil): "+Fore.RED, Fore.LIGHTRED_EX,
+            print( + "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral dert deil): "+Fore.RED, Fore.LIGHTRED_EX,
         Fore.YELLOW, Fore.LIGHTYELLOW_EX,
         Fore.GREEN, Fore.LIGHTGREEN_EX,
         Fore.CYAN, Fore.LIGHTCYAN_EX,
