@@ -24,7 +24,12 @@ while 1:
 ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ 
     
     Sms: {}           {}by {}@zerowbabaa\n  
-    """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Style.RESET_ALL, Fore.LIGHTRED_EX))
+    """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Fore.RED, Fore.LIGHTRED_EX,
+        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
+        Fore.GREEN, Fore.LIGHTGREEN_EX,
+        Fore.CYAN, Fore.LIGHTCYAN_EX,
+        Fore.BLUE, Fore.LIGHTBLUE_EX,
+        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX))
     try:
         menu = (input(Fore.LIGHTMAGENTA_EX + " 1- SMS Gönder (RELAX)\n\n 2- SMS Gönder (DEHŞET)\n\n 3-SİKTİR GİT \n\n" + Fore.LIGHTYELLOW_EX + " Seçim: "))
         if menu == "":
