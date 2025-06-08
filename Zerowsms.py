@@ -126,7 +126,7 @@ while 1:
         input()
     elif menu == 3:
         system("cls||clear")
-        print(Fore.LIGHTRED_EX + "Çıkış yapılıyor...")
+        print(Fore.LIGHTRED_EX + "SİKTİR OLUP GİDİLİYOR...")
         break
     elif menu == 2:
         system("cls||clear")
