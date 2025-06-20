@@ -109,11 +109,15 @@ while 1:
                 continue
         system("cls||clear")
         try:
-            print( + "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral dert deil):Fore.YELLOW + Fore.LIGHTYELLOW_EX +
-      Fore.GREEN + Fore.LIGHTGREEN_EX +
-      Fore.CYAN + Fore.LIGHTCYAN_EX +
-      Fore.BLUE + Fore.LIGHTBLUE_EX +
-      Fore.MAGENTA + Fore.LIGHTMAGENTA_EX, end="")
+            print(
+    Fore.YELLOW + Fore.LIGHTYELLOW_EX +
+    Fore.GREEN + Fore.LIGHTGREEN_EX +
+    Fore.CYAN + Fore.LIGHTCYAN_EX +
+    Fore.BLUE + Fore.LIGHTBLUE_EX +
+    Fore.MAGENTA + Fore.LIGHTMAGENTA_EX +
+    "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral dert değil): ",
+    end=""
+            )
             mail = input()
             if ("@" not in mail or ".com" not in mail) and mail != "":
                 raise
