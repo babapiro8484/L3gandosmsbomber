@@ -1,279 +1,124 @@
-from colorama import Fore, Style
+from colorama import Fore, Style, init
 from time import sleep
 from os import system
 from sms import SendSms
 import threading
 
+init(autoreset=True)
+
+rainbow_colors = [Fore.RED, Fore.LIGHTRED_EX, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
+
+def rainbow_text(text):
+    colored = ""
+    color_index = 0
+    for char in text:
+        if char.strip() == "":
+            colored += char
+        else:
+            colored += rainbow_colors[color_index % len(rainbow_colors)] + char
+            color_index += 1
+    return colored + Style.RESET_ALL
+
 servisler_sms = []
 for attribute in dir(SendSms):
-    attribute_value = getattr(SendSms, attribute)
-    if callable(attribute_value):
-        if attribute.startswith('__') == False:
-            servisler_sms.append(attribute)
+    if callable(getattr(SendSms, attribute)) and not attribute.startswith("__"):
+        servisler_sms.append(attribute)
 
-            
-while 1:
+while True:
     system("cls||clear")
-    print("""{}
-
+    banner = """
 ███████╗███████╗███████╗██████╗  ██████╗ ██╗    ██╗
 ╚══███╔╝██╔════╝██╔════╝██╔══██╗██╔═══██╗██║    ██║
   ███╔╝ █████╗  █████╗  ██████╔╝██║   ██║██║ █╗ ██║
  ███╔╝  ██╔══╝  ██╔══╝  ██╔══██╗██║   ██║██║███╗██║
 ███████╗███████╗███████╗██║  ██║╚██████╔╝╚███╔███╔╝
-╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ 
-    
-    Sms: {}           {}by {}@zerowbabaa\n  
-    """.format(Fore.LIGHTCYAN_EX, len(servisler_sms), Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX))
+╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝
+"""
+    print(rainbow_text(banner))
+    print(rainbow_text(f"Sms servis sayısı: {len(servisler_sms)}"))
+    print(rainbow_text("by @zerowbabaa\n"))
+
     try:
-        menu = (input(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ " 1- SMS Gönder (RELAX)\n\n 2- SMS Gönder (DEHŞET)\n\n 3-SİKTİR GİT \n\n" + Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + " Seçim: "))
+        menu = input(rainbow_text(
+            "1- SMS Gönder (RELAX)\n"
+            "2- SMS Gönder (DEHŞET)\n"
+            "3- SİKTİR GİT\n"
+            "Seçim: "
+        ))
         if menu == "":
             continue
-        menu = int(menu) 
+        menu = int(menu)
     except ValueError:
-        system("cls||clear")
-        print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "Hatalı giriş yaptin nabion aq tekrar dene")
+        print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
         sleep(3)
         continue
-    if menu == 1:
-        system("cls||clear")
-        print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Telefon numarasını başında '+90' olmadan yazınız (Birden çoksa 'enter' tuşuna bas kral): "+ Fore.LIGHTGREEN_EX, end="")
-        tel_no = input()
-        tel_liste = []
-        if tel_no == "":
-            system("cls||clear")
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Telefon numaralarının kayıtlı olduğu dosyanın dizinini yaz kral: "+ Fore.LIGHTGREEN_EX, end="")
-            dizin = input()
-            try:
-                with open(dizin, "r", encoding="utf-8") as f:
-                    for i in f.read().strip().split("\n"):
-                        if len(i) == 10:
-                            tel_liste.append(i)
-                sonsuz = ""
-            except FileNotFoundError:
-                system("cls||clear")
-                print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Hatalı dosya dizini nabion aq tekrar dene")
-                sleep(3)
-                continue
-        else:
-            try:
-                int(tel_no)
-                if len(tel_no) != 10:
-                    raise ValueError
-                tel_liste.append(tel_no)
-                sonsuz = "(Sonsuz ise 'enter' tuşuna bas kral)"
-            except ValueError:
-                system("cls||clear")
-                print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "Hatalı telefon numarası nabion aq tekrar dene")
-                sleep(3)
-                continue
-        system("cls||clear")
-        try:
-            print(
-    Fore.YELLOW + Fore.LIGHTYELLOW_EX +
-    Fore.GREEN + Fore.LIGHTGREEN_EX +
-    Fore.CYAN + Fore.LIGHTCYAN_EX +
-    Fore.BLUE + Fore.LIGHTBLUE_EX +
-    Fore.MAGENTA + Fore.LIGHTMAGENTA_EX +
-    "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral dert değil): ",
-    end=""
-            )
-            mail = input()
-            if ("@" not in mail or ".com" not in mail) and mail != "":
-                raise
-        except:
-            system("cls||clear")
-            print(
-    Fore.YELLOW + Fore.LIGHTYELLOW_EX +
-    Fore.GREEN + Fore.LIGHTGREEN_EX +
-    Fore.CYAN + Fore.LIGHTCYAN_EX +
-    Fore.BLUE + Fore.LIGHTBLUE_EX +
-    Fore.MAGENTA + Fore.LIGHTMAGENTA_EX +
-    "Hatalı mail adresi nabion aq tekrar dene",
-    end=""
-)
-sleep(3)
-continue
-system("cls||clear")
-        try:
-            print(Fore.LIGHTYELLOW_EX + f"Kaç adet SMS göndermek istiyon kral {sonsuz}: "+ Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX end="")
-            kere = input()
-            if kere:
-                kere = int(kere)
-            else:
-                kere = None
-        except ValueError:
-            system("cls||clear")
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "Hatalı giriş yaptın nabion aq tekrar dene") 
-            sleep(3)
-            continue
-        system("cls||clear")
-        try:
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Kaç saniye aralıkla göndermek istiyorsun kral: "+ Fore.LIGHTGREEN_EX, end="")
-            aralik = int(input())
-        except ValueError:
-            system("cls||clear")
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "Hatalı giriş yaptın nabion aq tekrar dene")
-            sleep(3)
-            continue
-        system("cls||clear")
-        if kere is None: 
-            sms = SendSms(tel_no, mail)
-            while True:
-                for attribute in dir(SendSms):
-                    attribute_value = getattr(SendSms, attribute)
-                    if callable(attribute_value):
-                        if attribute.startswith('__') == False:
-                            exec("sms."+attribute+"()")
-                            sleep(aralik)
-        for i in tel_liste:
-            sms = SendSms(i, mail)
-            if isinstance(kere, int):
-                    while sms.adet < kere:
-                        for attribute in dir(SendSms):
-                            attribute_value = getattr(SendSms, attribute)
-                            if callable(attribute_value):
-                                if attribute.startswith('__') == False:
-                                    if sms.adet == kere:
-                                        break
-                                    exec("sms."+attribute+"()")
-                                    sleep(aralik)
-        print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "\nMenüye dönmek için 'enter' tuşuna bas kral...")
-        input()
-    elif menu == 3:
-        system("cls||clear")
-        print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "SİKTİR OLUP GİDİLİYOR...")
+
+    if menu == 3:
+        print(rainbow_text("SİKTİR OLUP GİDİLİYOR..."))
         break
-    elif menu == 2:
-        system("cls||clear")
-        print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX + "Telefon numarasını başında '+90' olmadan yaz kral: "+ Fore.LIGHTGREEN_EX, end="")
-        tel_no = input()
+
+    elif menu in [1, 2]:
+        tel_no = input(rainbow_text("Telefon numarası (başında +90 olmasın): "))
         try:
             int(tel_no)
             if len(tel_no) != 10:
                 raise ValueError
         except ValueError:
-            system("cls||clear")
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Hatalı telefon numarası nabion aq tekrar dene") 
+            print(rainbow_text("Hatalı telefon numarası nabion aq tekrar dene"))
             sleep(3)
             continue
-        system("cls||clear")
-        try:
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Mail adresi (Bilmiyorsan 'enter' tuşuna bas kral): "+ Fore.LIGHTGREEN_EX, end="")
-            mail = input()
-            if ("@" not in mail or ".com" not in mail) and mail != "":
-                raise
-        except:
-            system("cls||clear")
-            print(Fore.RED, Fore.LIGHTRED_EX,
-        Fore.YELLOW, Fore.LIGHTYELLOW_EX,
-        Fore.GREEN, Fore.LIGHTGREEN_EX,
-        Fore.CYAN, Fore.LIGHTCYAN_EX,
-        Fore.BLUE, Fore.LIGHTBLUE_EX,
-        Fore.MAGENTA, Fore.LIGHTMAGENTA_EX+ "Hatalı mail adresi nabion aq tekrar dene") 
+
+        mail = input(rainbow_text("Mail adresi (bilmiyorsan boş bırak): "))
+        if ("@" not in mail or ".com" not in mail) and mail != "":
+            print(rainbow_text("Hatalı mail adresi nabion aq tekrar dene"))
             sleep(3)
             continue
-        system("cls||clear")
-        send_sms = SendSms(tel_no, mail)
-        dur = threading.Event()
-        def Turbo():
-            while not dur.is_set():
-                thread = []
-                for fonk in servisler_sms:
-                    t = threading.Thread(target=getattr(send_sms, fonk), daemon=True)
-                    thread.append(t)
-                    t.start()
-                for t in thread:
-                    t.join()
-        try:
-            Turbo()
-        except KeyboardInterrupt:
-            dur.set()
-            system("cls||clear")
-            print("\nCtrl+C tuş kombinasyonu algılandı. Menüye dönülüyor..")
-            sleep(2)
+
+        if menu == 1:
+            try:
+                kere = input(rainbow_text("Kaç adet SMS göndermek istiyon kral (sonsuz için boş bırak): "))
+                kere = int(kere) if kere else None
+            except ValueError:
+                print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
+                sleep(3)
+                continue
+
+            try:
+                aralik = int(input(rainbow_text("Kaç saniye aralıkla göndermek istiyorsun kral: ")))
+            except ValueError:
+                print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
+                sleep(3)
+                continue
+
+            sms = SendSms(tel_no, mail)
+            if kere is None:
+                while True:
+                    for fonk in servisler_sms:
+                        getattr(sms, fonk)()
+                        sleep(aralik)
+            else:
+                while sms.adet < kere:
+                    for fonk in servisler_sms:
+                        if sms.adet >= kere:
+                            break
+                        getattr(sms, fonk)()
+                        sleep(aralik)
+        else:
+            send_sms = SendSms(tel_no, mail)
+            dur = threading.Event()
+            def turbo():
+                while not dur.is_set():
+                    threads = []
+                    for fonk in servisler_sms:
+                        t = threading.Thread(target=getattr(send_sms, fonk), daemon=True)
+                        threads.append(t)
+                        t.start()
+                    for t in threads:
+                        t.join()
+
+            try:
+                turbo()
+            except KeyboardInterrupt:
+                dur.set()
+                print(rainbow_text("Ctrl+C algılandı. Menüye dönülüyor..."))
+                sleep(2)
