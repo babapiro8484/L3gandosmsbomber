@@ -16,7 +16,7 @@ def title_banner():
     ascii_banner = pyfiglet.figlet_format("LEGANDOS", font="slant")
     print(colored(ascii_banner, "cyan"))
     print(colored("by @L3G@NDØS", "green"))
-    print(colored("~ Legend Hack Tool Interface ~", "magenta"))
+    print(colored("~ L3g@ndøs Sms Bomber Tool Interface ~", "magenta"))
     print()
 
 def renkli_secim_menusu():
