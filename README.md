@@ -2,7 +2,7 @@ pkg install git
 pkg install python
 pkg install colorama
 pkg install pyfiglet
-pkg install termcolir
+pkg install termcolor
 apt upgrade
 git clone https://github.com/babapiro8484/Zerowsms.git
 cd Zerowsms
