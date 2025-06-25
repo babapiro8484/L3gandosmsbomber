@@ -8,16 +8,18 @@ init(autoreset=True)
 
 rainbow_colors = [Fore.RED, Fore.LIGHTRED_EX, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
 
-def rainbow_text(text):
-    colored = ""
-    color_index = 0
-    for char in text:
-        if char.strip() == "":
-            colored += char
-        else:
-            colored += rainbow_colors[color_index % len(rainbow_colors)] + char
-            color_index += 1
-    return colored + Style.RESET_ALL
+def animated_rainbow_text(text, delay=0.1, repeat=1):
+    for _ in range(repeat):
+        system("cls||clear")
+        colored = ""
+        for i, char in enumerate(text):
+            if char.strip() == "":
+                colored += char
+            else:
+                color = rainbow_colors[(i + _) % len(rainbow_colors)]
+                colored += color + char
+        print(colored + Style.RESET_ALL)
+        sleep(delay)
 
 servisler_sms = []
 for attribute in dir(SendSms):
@@ -34,60 +36,59 @@ while True:
 ███████╗███████╗███████╗██║  ██║╚██████╔╝╚███╔███╔╝
 ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝
 """
-    print(rainbow_text(banner))
-    print(rainbow_text(f"Sms servis sayısı: {len(servisler_sms)}"))
-    print(rainbow_text("by @zerowbabaa\n"))
+    animated_rainbow_text(banner, delay=0.12, repeat=5)
+    animated_rainbow_text(f"Sms servis sayısı: {len(servisler_sms)}", repeat=2)
+    animated_rainbow_text("by @zerowbabaa\n", repeat=1)
 
     try:
-        menu = input(rainbow_text(
-            "1- SMS Gönder (RELAX)\n"
-            "2- SMS Gönder (DEHŞET)\n"
-            "3- SİKTİR GİT\n"
-            "Seçim: "
-        ))
+        menu = input("""
+1- SMS Gönder (RELAX)
+2- SMS Gönder (DEHŞET)
+3- SİKTİR GİT
+Seçim: """)
         if menu == "":
             continue
         menu = int(menu)
     except ValueError:
-        print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
-        sleep(3)
+        animated_rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene", repeat=2)
+        sleep(2)
         continue
 
     if menu == 3:
-        print(rainbow_text("SİKTİR OLUP GİDİLİYOR..."))
+        animated_rainbow_text("SİKTİR OLUP GİDİLİYOR...", repeat=2)
         break
 
     elif menu in [1, 2]:
-        tel_no = input(rainbow_text("Telefon numarası (başında +90 olmasın): "))
+        tel_no = input("Telefon numarası (başında +90 olmasın): ")
         try:
             int(tel_no)
             if len(tel_no) != 10:
                 raise ValueError
         except ValueError:
-            print(rainbow_text("Hatalı telefon numarası nabion aq tekrar dene"))
-            sleep(3)
+            animated_rainbow_text("Hatalı telefon numarası nabion aq tekrar dene", repeat=2)
+            sleep(2)
             continue
 
-        mail = input(rainbow_text("Mail adresi (bilmiyorsan boş bırak): "))
+        mail = input("Mail adresi (bilmiyorsan boş bırak): ")
         if ("@" not in mail or ".com" not in mail) and mail != "":
-            print(rainbow_text("Hatalı mail adresi nabion aq tekrar dene"))
-            sleep(3)
+            animated_rainbow_text("Hatalı mail adresi nabion aq tekrar dene", repeat=2)
+            sleep(2)
             continue
 
         if menu == 1:
             try:
-                kere = input(rainbow_text("Kaç adet SMS göndermek istiyon kral (sonsuz için boş bırak): "))
+                kere = input("Kaç adet SMS göndermek istiyon kral (sonsuz için boş bırak): ")
                 kere = int(kere) if kere else None
             except ValueError:
-                print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
-                sleep(3)
+                animated_rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene", repeat=2)
+                sleep(2)
                 continue
 
             try:
-                aralik = int(input(rainbow_text("Kaç saniye aralıkla göndermek istiyorsun kral: ")))
+                aralik = int(input("Kaç saniye aralıkla göndermek istiyorsun kral: "))
             except ValueError:
-                print(rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene"))
-                sleep(3)
+                animated_rainbow_text("Hatalı giriş yaptın nabion aq tekrar dene", repeat=2)
+                sleep(2)
                 continue
 
             sms = SendSms(tel_no, mail)
@@ -120,5 +121,5 @@ while True:
                 turbo()
             except KeyboardInterrupt:
                 dur.set()
-                print(rainbow_text("Ctrl+C algılandı. Menüye dönülüyor..."))
+                animated_rainbow_text("Ctrl+C algılandı. Menüye dönülüyor...", repeat=2)
                 sleep(2)
