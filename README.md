@@ -4,7 +4,7 @@ pkg install colorama
 pkg install pyfiglet
 pkg install termcolor
 apt upgrade
-git clone https://github.com/babapiro8484/L3gandosmsbomber.py.git
+git clone https://github.com/babapiro8484/L3gandosmsbomber.git
 cd L3gandosmsbomber
 git pull 
 chmod 777 *
